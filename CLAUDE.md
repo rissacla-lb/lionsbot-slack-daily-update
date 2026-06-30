@@ -12,12 +12,12 @@ SOURCES
 - DB2 "R5 Issues Resolution Tracker" (engineering issues): collection://2efca955-2bd8-8064-8e69-000bba93a400
 - Slack channel #r5-trials-support: C09H796EZQ8
 
-TIME WINDOW (gapless chain; think in SGT, query in UTC)
-- All "Date Reported" values are returned in UTC (Z). SGT = UTC+8, so convert: SGT − 8h = UTC.
-- End  = today 08:30 SGT  = today 00:30:00Z  (exclusive, <)
+TIME WINDOW (gapless chain; all times in SGT)
+- "Date Reported" values are in SGT — no UTC conversion needed.
+- End  = today 08:30 SGT  (exclusive, <)
 - Start = previous run's end (the 08:30 SGT of the last weekday this ran), inclusive (>=):
-    • Tue–Fri run → start = yesterday 08:30 SGT = yesterday 00:30:00Z
-    • Monday run  → start = Friday   08:30 SGT = Friday   00:30:00Z   (covers Sat+Sun+Mon)
+    • Tue–Fri run → start = yesterday 08:30 SGT
+    • Monday run  → start = Friday   08:30 SGT   (covers Sat+Sun+Mon)
 - This is a continuous chain (each day starts where the last ended) so nothing
   created off-hours is ever skipped or double-counted.
 - Filter incidents on "Date Reported" (created_time, auto-set, can't be back-dated).
