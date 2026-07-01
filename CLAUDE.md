@@ -73,40 +73,40 @@ This is a continuous chain (each day starts where the last ended) so nothing is 
 The run produces **two documents**: a trimmed Slack draft (the field-facing summary) and a Notion review page (the ops/triage notes). Nothing goes to Slack that isn't in the 4 sections below — everything else lives in Notion only.
 
 
-### Slack draft — `mrkdwn`, `*asterisks*` = bold, `_underscores_` = italic, `•` bullets, no tables
+### Slack draft — `mrkdwn`, `**asterisks**` = bold, `_underscores_` = italic, `•` bullets, no tables
 
 Multi-line, labeled sub-fields per item (not single-line `·`-joined bullets) — this is the readable format, keep it.
 
 - **Links** — every `R5INC-…` and `R5ISS-…` reference anywhere in sections ①–④ is a Slack link `<page-url|R5INC-…>` / `<page-url|R5ISS-…>` pointing at that row's own Notion page (the `url` field already returned when the row is fetched/queried) — never a bare ID.
-- **Thread line** — pull the incident's `Slack Thread` URL (DB1 field) and show it as its own line above Symptom: `*Thread:* <slack-thread-url|link>`. If `Slack Thread` is unset, write `*Thread:* not on file` — never invent a link.
+- **Thread line** — pull the incident's `Slack Thread` URL (DB1 field) and show it as its own line above Symptom: `**Thread:** <slack-thread-url|link>`. If `Slack Thread` is unset, write `**Thread:** not on file` — never invent a link.
 - **Severity emoji** — prefix each incident line with a severity marker: 🔴 `Urgent` · 🟠 `High` · 🟡 `Medium` · ⚪ `Low` · omit if Severity is unset.
 
 ```
-*R5 Daily Field Summary — [Day DD Mon YYYY]*
+**R5 Daily Field Summary — [Day DD Mon YYYY]**
 _Window: [start] SGT → [end] SGT (by Date Reported)_
 _Field: X active / Y resolved · Linked-issue priority: a Very High · b High · c Med · d unset_
 
-*① Field incidents*
+**① Field incidents**
 _Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
 
-[emoji] *<[Notion incident url]|R5INC-…>* — Cxxxxx · Site (Region)
-  *Thread:* <[Slack Thread url]|link>
-  *Symptom:* one-line description
-  *Status:* … `Severity`  →  *<[Notion issue url]|R5ISS-…>* (Pri: `…`) "Key Issue"
-  *Next:* next action
+[emoji] **<[Notion incident url]|R5INC-…>** — Cxxxxx · Site (Region)
+  **Thread:** <[Slack Thread url]|link>
+  **Symptom:** one-line description
+  **Status:** … `Severity`  →  **<[Notion issue url]|R5ISS-…>** (Pri: `…`) "Key Issue"
+  **Next:** next action
 
-*② Very High & High issues linked to these incidents*
-• *<[Notion issue url]|R5ISS-…>* (`Very High`/`High`) "key issue" — status, target date/version set  (← *<[Notion incident url]|R5INC-…>*)
+**② Very High & High issues linked to these incidents**
+• **<[Notion issue url]|R5ISS-…>** (`Very High`/`High`) "key issue" — status, target date/version set  (← **<[Notion incident url]|R5INC-…>**)
 
-*③ Release calendar (next ~7 days)*
-*[date]*
-  • *<[Notion issue url]|R5ISS-…>* (`Pri`) "key issue" — status
+**③ Release calendar (next ~7 days)**
+**[date]**
+  • **<[Notion issue url]|R5ISS-…>** (`Pri`) "key issue" — status
 
-*[date] — v[x.y.z] target release*
-  • *<[Notion issue url]|R5ISS-…>* (`Pri`) — key issue / ← *<[Notion incident url]|R5INC-…>* if linked
+**[date] — v[x.y.z] target release**
+  • **<[Notion issue url]|R5ISS-…>** (`Pri`) — key issue / ← **<[Notion incident url]|R5INC-…>** if linked
 
-*④ Overdue*
-• *<[Notion issue url]|R5ISS-…>* (`Pri`) "key issue" — target [date], status — *N days overdue*
+**④ Overdue**
+• **<[Notion issue url]|R5ISS-…>** (`Pri`) "key issue" — target [date], status — **N days overdue**
 ```
 
 ---
@@ -132,7 +132,7 @@ _Not verified / left blank this run: …_
 
 ## After Writing
 1. Show me the full text of both documents (Slack draft + Notion page content) first.
-2. Create the Slack **DRAFT** in `C0BB993G144` (never send) with only sections ①–④ above. Confirm the draft was created.
+2. Create the Slack **DRAFT** in both `C0BB993G144` and `D020YGM38UD` (never send either) with only sections ①–④ above. Confirm both drafts were created.
 3. Create the Notion page (title it `R5 Daily Ops Notes — [Day DD Mon YYYY]`) with the Action needed / Data hygiene / Recheck tomorrow content. Confirm the page was created and share the link.
 4. Remind me to delete the previous day's Slack draft so I don't send a stale one.
 5. End with a 1-line list of anything you couldn't verify or had to leave blank (also included at the bottom of the Notion page).
