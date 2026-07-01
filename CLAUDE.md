@@ -19,16 +19,15 @@ TIME WINDOW (gapless chain; all times in SGT)
     • Tue–Fri run → start = yesterday 08:30 SGT
     • Monday run  → start = Friday   08:30 SGT   (covers Sat+Sun+Mon)
 - This is a continuous chain (each day starts where the last ended) so nothing
-  created off-hours is ever skipped or double-counted.
-- Filter incidents on "Date Reported" (created_time, auto-set, can't be back-dated).
-- DISPLAY "Date of Incident" in the output (when it actually happened), not Date Reported.
+  is ever skipped or double-counted.
+- Filter incidents on "Date of Incident" (SGT). Display it in the output.
 
 WHAT TO PULL
-1. DB1 incidents with Date Reported in the window above (no status filter — include
+1. DB1 incidents with Date of Incident in the window above (no status filter — include
    all, label each with its Incident Status). Pull: Incident ID, Issue Summary,
    Incident Status, Severity, Robot ID, Customer / Trial Site, AUT Version,
-   AI Triage Notes, "🚨 R5 Issues Resolution Tracker" relation, Date of Incident,
-   Date Reported. (Exact field names — there is NO "Date of Issue" or "Subsystem" column.)
+   AI Triage Notes, "🚨 R5 Issues Resolution Tracker" relation, Date of Incident.
+   (Exact field names — there is NO "Date of Issue" or "Subsystem" column.)
 2. For each incident, resolve the ACTUAL linked DB2 issue via the relation field
    (you must view DB2 to read it). Do NOT treat the "likely cluster" text in
    AI Triage Notes as a confirmed link — if that's all there is, label it "cluster?".
@@ -55,7 +54,7 @@ KEY RULES
 
 OUTPUT (Slack mrkdwn — single *asterisks* = bold, _underscores_ = italic, • bullets, no tables)
 *R5 Daily Field Summary — [Day DD Mon YYYY]*
-_Window [start]–[end] SGT (by Date Reported) · field: X active / Y resolved · linked-issue priority: a Very High · b High · c Med · d unset_
+_Window [start]–[end] SGT (by Date of Incident) · field: X active / Y resolved · linked-issue priority: a Very High · b High · c Med · d unset_
 
 *① Action needed*  — one line per human decision/owner, with → owner
 
