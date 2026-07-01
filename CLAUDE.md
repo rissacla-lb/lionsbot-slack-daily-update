@@ -46,7 +46,7 @@ This is a continuous chain (each day starts where the last ended) so nothing is 
 
 1. **DB1 incidents** with `Date Reported` in the window above (no status filter — include all, label each with its Incident Status).
 
-   Fields to pull: `Incident ID`, `Issue Summary`, `Incident Status`, `Severity`, `Robot ID`, `Customer / Trial Site`, `AUT Version`, `AI Triage Notes`, `🚨 R5 Issues Resolution Tracker` (relation), `Date of Incident`, `Date Reported`.
+   Fields to pull: `Incident ID`, `Issue Summary`, `Incident Status`, `Severity`, `Robot ID`, `Customer / Trial Site`, `AUT Version`, `AI Triage Notes`, `🚨 R5 Issues Resolution Tracker` (relation), `Date of Incident`, `Date Reported`, `Slack Thread` and the Notion page URL for each incident.
 
    > Exact field names — there is **no** `Date of Issue` or `Subsystem` column.
 
@@ -75,7 +75,11 @@ The run produces **two documents**: a trimmed Slack draft (the field-facing summ
 
 ### Slack draft — `mrkdwn`, `*asterisks*` = bold, `_underscores_` = italic, `•` bullets, no tables
 
-Multi-line, labeled sub-fields per item (not single-line `·`-joined bullets) — this is the readable format, keep it:
+Multi-line, labeled sub-fields per item (not single-line `·`-joined bullets) — this is the readable format, keep it.
+
+- **Links** — every `R5INC-…` and `R5ISS-…` reference anywhere in sections ①–④ is a Slack link `<page-url|R5INC-…>` / `<page-url|R5ISS-…>` pointing at that row's own Notion page (the `url` field already returned when the row is fetched/queried) — never a bare ID.
+- **Thread line** — pull the incident's `Slack Thread` URL (DB1 field) and show it as its own line above Symptom: `*Thread:* <slack-thread-url|link>`. If `Slack Thread` is unset, write `*Thread:* not on file` — never invent a link.
+- **Severity emoji** — prefix each incident line with a severity marker: 🔴 `Urgent` · 🟠 `High` · 🟡 `Medium` · ⚪ `Low` · omit if Severity is unset.
 
 ```
 *R5 Daily Field Summary — [Day DD Mon YYYY]*
@@ -85,23 +89,24 @@ _Field: X active / Y resolved · Linked-issue priority: a Very High · b High ·
 *① Field incidents*
 _Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
 
-*R5INC-…* — Cxxxxx · Site (Region)
-  Symptom: …
-  Status: … `[Severity if set]`  →  R5ISS-… (Pri: *…*) "Key Issue"
-  Next: next action
+[emoji] *<[Notion incident url]|R5INC-…>* — Cxxxxx · Site (Region)
+  *Thread:* <[Slack Thread url]|link>
+  *Symptom:* one-line description
+  *Status:* … `Severity`  →  *<[Notion issue url]|R5ISS-…>* (Pri: `…`) "Key Issue"
+  *Next:* next action
 
 *② Very High & High issues linked to these incidents*
-• *R5ISS-…* (Very High/High) "key issue" — status, target date/version set  (← R5INC-…)
+• *<[Notion issue url]|R5ISS-…>* (`Very High`/`High`) "key issue" — status, target date/version set  (← *<[Notion incident url]|R5INC-…>*)
 
 *③ Release calendar (next ~7 days)*
 *[date]*
-  • R5ISS-… (Pri) "key issue" — status
+  • *<[Notion issue url]|R5ISS-…>* (`Pri`) "key issue" — status
 
 *[date] — v[x.y.z] target release*
-  • R5ISS-… (Pri) — key issue / ← R5INC-… if linked
+  • *<[Notion issue url]|R5ISS-…>* (`Pri`) — key issue / ← *<[Notion incident url]|R5INC-…>* if linked
 
 *④ Overdue*
-• *R5ISS-…* (Pri) "key issue" — target [date], status — *N days overdue*
+• *<[Notion issue url]|R5ISS-…>* (`Pri`) "key issue" — target [date], status — *N days overdue*
 ```
 
 ---
