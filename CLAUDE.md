@@ -70,35 +70,64 @@ This is a continuous chain (each day starts where the last ended) so nothing is 
 ---
 
 ## Output Format
+The run produces **two documents**: a trimmed Slack draft (the field-facing summary) and a Notion review page (the ops/triage notes). Nothing goes to Slack that isn't in the 4 sections below — everything else lives in Notion only.
 
-Slack `mrkdwn` — `*asterisks*` = bold, `_underscores_` = italic, `•` bullets, no tables.
+
+### Slack draft — `mrkdwn`, `*asterisks*` = bold, `_underscores_` = italic, `•` bullets, no tables
+
+Multi-line, labeled sub-fields per item (not single-line `·`-joined bullets) — this is the readable format, keep it:
 
 ```
 *R5 Daily Field Summary — [Day DD Mon YYYY]*
-_Window [start]–[end] SGT (by Date Reported) · field: X active / Y resolved · linked-issue priority: a Very High · b High · c Med · d unset_
+_Window: [start] SGT → [end] SGT (by Date Reported)_
+_Field: X active / Y resolved · Linked-issue priority: a Very High · b High · c Med · d unset_
 
-*① Action needed*  — one line per human decision/owner, with → owner
+*① Field incidents*
+_Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
 
-*② Field incidents*  — _Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
-- *R5INC-…* Cxxxxx Site — symptom · Status [Severity if set] · → R5ISS-… (Pri: …) · next action
+*R5INC-…* — Cxxxxx · Site (Region)
+  Symptom: …
+  Status: … `[Severity if set]`  →  R5ISS-… (Pri: *…*) "Key Issue"
+  Next: next action
 
-*③ Very High & High issues linked to these incidents*
-- *R5ISS-…* (Very High/High) key issue — status → version/date (← R5INC-…)
+*② Very High & High issues linked to these incidents*
+• *R5ISS-…* (Very High/High) "key issue" — status, target date/version set  (← R5INC-…)
 
-*④ Release calendar (next ~7 days)*  — date — version / R5ISS-… items (with Pri)
+*③ Release calendar (next ~7 days)*
+*[date]*
+  • R5ISS-… (Pri) "key issue" — status
 
-*⑤ Overdue*  — *R5ISS-…* (Pri) issue (target date) · status
+*[date] — v[x.y.z] target release*
+  • R5ISS-… (Pri) — key issue / ← R5INC-… if linked
 
-*⑥ Data hygiene (one-time fixes)*  — wrong links, unset severity/priority, status mismatches, blank reporters
-
-*⑦ Recheck tomorrow*  — open questions to verify next run
+*④ Overdue*
+• *R5ISS-…* (Pri) "key issue" — target [date], status — *N days overdue*
 ```
 
 ---
 
-## After Writing
+### Notion review page — one page per run, separate from the Slack draft
 
-1. Show me the full text first.
-2. Create it as a Slack **DRAFT** in `C09H796EZQ8` (never send). Confirm the draft was created.
-3. Remind me to delete the previous day's draft so I don't send a stale one.
-4. End with a 1-line list of anything you couldn't verify or had to leave blank.
+Everything below stays OUT of Slack and goes into this page instead:
+
+```
+## Action needed
+- one bullet per human decision/owner, with → owner
+
+## Data hygiene (one-time fixes)
+- wrong links, unset severity/priority, status mismatches, blank reporters
+
+## Recheck tomorrow
+- open questions to verify next run
+
+---
+_Not verified / left blank this run: …_
+```
+---
+
+## After Writing
+1. Show me the full text of both documents (Slack draft + Notion page content) first.
+2. Create the Slack **DRAFT** in `C09H796EZQ8` (never send) with only sections ①–④ above. Confirm the draft was created.
+3. Create the Notion page (title it `R5 Daily Ops Notes — [Day DD Mon YYYY]`) with the Action needed / Data hygiene / Recheck tomorrow content. Confirm the page was created and share the link.
+4. Remind me to delete the previous day's Slack draft so I don't send a stale one.
+5. End with a 1-line list of anything you couldn't verify or had to leave blank (also included at the bottom of the Notion page).
