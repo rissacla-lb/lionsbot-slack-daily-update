@@ -92,7 +92,7 @@ _Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
 [emoji] **<[Notion incident url]|R5INC-…>** — Cxxxxx · Site (Region)
   **Thread:** <[Slack Thread url]|link>
   **Symptom:** one-line description
-  **Status:** … `Severity`  →  **<[Notion issue url]|R5ISS-…>** (Pri: `…`) "Key Issue"
+  **Status → Issue:** … `Severity`  →  **<[Notion issue url]|R5ISS-…>** (Pri: `…`) "Key Issue"
   **Next:** next action
 
 **② Very High & High issues linked to these incidents**
@@ -111,18 +111,25 @@ _Pri = engineering Priority on linked DB2 issue (≠ incident severity)_
 
 ---
 
-### Notion review page — one page per run, separate from the Slack draft
+### Notion review page — appended to existing daily DB row
 
-Everything below stays OUT of Slack and goes into this page instead:
+Everything below stays OUT of Slack and goes into Notion instead.
+
+Find the row in the Notion database at `[https://www.notion.so/lionsbotinternational/390ca9552bd880e19238f2dcad8df639?v=390ca9552bd8809b9742000c620dd1de&source=copy_link]` where the `Date` property equals today's date.
+
+- **If found:** open that page and append the notes below under a heading `lionsbot-slack-daily-update Notes`, below any existing content.
+- **If not found:** create a new row with `Date` set to today and `Title` set to today's date, then add the notes under `lionsbot-slack-daily-update Notes`. Flag in the notes that Routine 1's section is missing.
 
 ```
-## Action needed
+## lionsbot-slack-daily-update Notes
+
+### Action needed
 - one bullet per human decision/owner, with → owner
 
-## Data hygiene (one-time fixes)
+### Data hygiene (one-time fixes)
 - wrong links, unset severity/priority, status mismatches, blank reporters
 
-## Recheck tomorrow
+### Recheck tomorrow
 - open questions to verify next run
 
 ---
@@ -133,6 +140,6 @@ _Not verified / left blank this run: …_
 ## After Writing
 1. Show me the full text of both documents (Slack draft + Notion page content) first.
 2. Create the Slack **DRAFT** in both `C0BB993G144` and `D020YGM38UD` (never send either) with only sections ①–④ above. Confirm both drafts were created.
-3. Create the Notion page (title it `R5 Daily Ops Notes — [Day DD Mon YYYY]`) with the Action needed / Data hygiene / Recheck tomorrow content. Confirm the page was created and share the link.
+3. Find today's row in `[https://www.notion.so/lionsbotinternational/390ca9552bd880e19238f2dcad8df639?v=390ca9552bd8809b9742000c620dd1de&source=copy_link]` and append the Action needed / Data hygiene / Recheck tomorrow notes under `lionsbot-slack-daily-update Notes`. If no row exists, create one and flag that Routine 1's section is missing. Confirm and share the link.
 4. Remind me to delete the previous day's Slack draft so I don't send a stale one.
 5. End with a 1-line list of anything you couldn't verify or had to leave blank (also included at the bottom of the Notion page).
