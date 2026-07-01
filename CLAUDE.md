@@ -19,7 +19,7 @@ Produce ONE Slack-pasteable daily summary from Notion + Slack, then save it as a
 |-------|------|----|
 | DB1 | R5 Field Incident Tracker (incidents) | `collection://466694f4-e045-4622-9077-a9af36db7db0` |
 | DB2 | R5 Issues Resolution Tracker (engineering issues) | `collection://2efca955-2bd8-8064-8e69-000bba93a400` |
-| Slack | #r5-trials-support | `C09H796EZQ8` |
+| Slack | #r5-taskforce | `C0BB993G144` |
 
 ---
 
@@ -127,7 +127,7 @@ _Not verified / left blank this run: …_
 
 ## After Writing
 1. Show me the full text of both documents (Slack draft + Notion page content) first.
-2. Create the Slack **DRAFT** in `C09H796EZQ8` (never send) with only sections ①–④ above. Confirm the draft was created.
+2. Create the Slack **DRAFT** in `C0BB993G144` (never send) with only sections ①–④ above. Confirm the draft was created.
 3. Create the Notion page (title it `R5 Daily Ops Notes — [Day DD Mon YYYY]`) with the Action needed / Data hygiene / Recheck tomorrow content. Confirm the page was created and share the link.
 4. Remind me to delete the previous day's Slack draft so I don't send a stale one.
 5. End with a 1-line list of anything you couldn't verify or had to leave blank (also included at the bottom of the Notion page).
